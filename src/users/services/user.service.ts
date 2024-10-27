@@ -76,7 +76,7 @@ export class UserService {
   async delete(username: string) {
     const user = await this.userRepository.findOne( {username})
     if (!user || !user.enabled) {
-      throw new NotFoundException(`User with NIK ${username} is either not found or has been deactivated`);
+      throw new NotFoundException(`User with Username ${username} is either not found or has been deactivated`);
     }
     user.enabled = false;
     await this.em.persistAndFlush(user);
@@ -86,7 +86,7 @@ export class UserService {
   async findOneUser(username: string): Promise<UserResponse | null> {
     const user = await this.userRepository.findOne({ username });
     if (!user || !user.enabled) {
-      throw new NotFoundException(`User with NIK ${username} is either not found or has been deactivated`);
+      throw new NotFoundException(`User with Username ${username} is either not found or has been deactivated`);
     }
     return user.toResponse();
     }
